@@ -14,16 +14,33 @@
  * limitations under the License.
  */
 
-package br.com.ottoboni.hqtracker;
+package br.com.ottoboni.hqtracker.app;
 
-import android.app.Application;
-import android.test.ApplicationTestCase;
+import android.content.Context;
 
 /**
- * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
+ * The type App.
  */
-public class ApplicationTest extends ApplicationTestCase<Application> {
-    public ApplicationTest() {
-        super(Application.class);
+public class App extends android.app.Application {
+
+    private static Context mContext = null;
+
+    /**
+     * Gets application context.
+     *
+     * @return the context
+     */
+    public static Context getContext() {
+        return mContext;
+    }
+
+    private static void setContext(Context context) {
+        mContext = context;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        setContext(getApplicationContext());
     }
 }

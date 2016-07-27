@@ -1,3 +1,7 @@
 <component name="CopyrightManager">
-  <settings default="" />
+  <settings default="ottoboni_copyright">
+    <module2copyright>
+      <element module="Project Files" copyright="ottoboni_copyright" />
+    </module2copyright>
+  </settings>
 </component>
