@@ -16,6 +16,7 @@
 
 package br.com.ottoboni.hqtracker.ui;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -29,7 +30,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.List;
+
 import br.com.ottoboni.hqtracker.R;
+import br.com.ottoboni.hqtracker.communication.model.CollectionResponse;
+import br.com.ottoboni.hqtracker.communication.model.ComicBookResponse;
+import br.com.ottoboni.hqtracker.controllers.CommunicationController;
 
 public class HomeActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,8 +51,9 @@ public class HomeActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
+                AsyncRequest requestTask = new AsyncRequest();
+
+                requestTask.execute();
             }
         });
 
@@ -58,6 +65,20 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private class AsyncRequest extends AsyncTask<Void, Void, List<CollectionResponse>> {
+
+        @Override
+        protected List<CollectionResponse> doInBackground(Void... params) {
+//            return CommunicationController.getInstance().requestComicBookList();
+            return CommunicationController.getInstance().requestCollections();
+        }
+
+        @Override
+        protected void onPostExecute(List<CollectionResponse> comicBookResponses) {
+            super.onPostExecute(comicBookResponses);
+        }
     }
 
     @Override

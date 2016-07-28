@@ -54,6 +54,8 @@ public class ComicBookDAO {
         long insertedId = DatabaseConstants.DEFAULT_DB_INT;
 
         if (comicBook != null) {
+            comicBook.setStatus(ComicBookStatus.pending);
+
             ContentValues values = getContentValues(comicBook);
 
             if (values.size() > DatabaseConstants.EMPTY_VALUES) {
