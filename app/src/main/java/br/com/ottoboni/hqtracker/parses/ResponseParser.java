@@ -16,6 +16,9 @@
 
 package br.com.ottoboni.hqtracker.parses;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.ottoboni.hqtracker.communication.model.CollectionResponse;
 import br.com.ottoboni.hqtracker.communication.model.ComicBookResponse;
 import br.com.ottoboni.hqtracker.model.Collection;
@@ -40,6 +43,35 @@ public class ResponseParser {
         }
         return comicBook;
     }
+
+    public static List<ComicBook> parseComicBookList(List<ComicBookResponse> comicBookResponses) {
+        List<ComicBook> comicBookList = new ArrayList<>();
+
+        if (comicBookResponses != null) {
+            for (ComicBookResponse response : comicBookResponses) {
+                ComicBook comicBook = parseComicBook(response);
+
+                comicBookList.add(comicBook);
+            }
+        }
+
+        return comicBookList;
+    }
+
+    public static List<Collection> parseCollectionList(List<CollectionResponse> collectionResponses) {
+        List<Collection> collectionList = new ArrayList<>();
+
+        if (collectionResponses != null) {
+            for (CollectionResponse response : collectionResponses) {
+                Collection collection = parseCollection(response);
+
+                collectionList.add(collection);
+            }
+        }
+
+        return collectionList;
+    }
+
 
     public static Collection parseCollection(CollectionResponse collectionResponse) {
         Collection collection = new Collection();

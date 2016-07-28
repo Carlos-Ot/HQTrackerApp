@@ -43,7 +43,7 @@ public class CommunicationController {
         return mInstance;
     }
 
-    public List<ComicBookResponse> requestComicBookList() {
+    public void requestComicBookList() {
         List<ComicBookResponse> comicBooks = null;
         ApiRequest apiRequest = ApiClient.createRequests();
 
@@ -64,8 +64,6 @@ public class CommunicationController {
         } catch (JsonSyntaxException e) {
             System.out.println("Entrou no Json");
         }
-
-        return comicBooks;
     }
 
     public List<CollectionResponse> requestCollections() {
