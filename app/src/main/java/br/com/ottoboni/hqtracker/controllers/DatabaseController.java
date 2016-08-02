@@ -70,10 +70,10 @@ public class DatabaseController {
     /**
      * Insert comic book list.
      *
-     * @param comicBookArrayList the comic book array list
+     * @param comicBookList the comic book array list
      */
-    public void insertComicBookList(ArrayList<ComicBook> comicBookArrayList) {
-        mComicBookDAO.insertComicBookList(comicBookArrayList);
+    public void insertComicBookList(List<ComicBook> comicBookList) {
+        mComicBookDAO.insertComicBookList(comicBookList);
     }
 
     /**
@@ -162,7 +162,7 @@ public class DatabaseController {
      *
      * @param collectionArrayList the collection array list
      */
-    public void insertCollectionList(ArrayList<Collection> collectionArrayList) {
+    public void insertCollectionList(List<Collection> collectionArrayList) {
         mCollectionDAO.insertCollectionList(collectionArrayList);
     }
 

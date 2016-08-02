@@ -70,7 +70,7 @@ public class ComicBookDAO {
      *
      * @param comicBookList the comic book list
      */
-    public void insertComicBookList(ArrayList<ComicBook> comicBookList) {
+    public void insertComicBookList(List<ComicBook> comicBookList) {
         int insertedRows = DatabaseConstants.DEFAULT_VALUE;
 
         if (comicBookList != null && comicBookList.size() > DatabaseConstants.EMPTY_VALUES) {

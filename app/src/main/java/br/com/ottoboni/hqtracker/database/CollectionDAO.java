@@ -69,7 +69,7 @@ public class CollectionDAO {
      *
      * @param collectionList the collection list
      */
-    public void insertCollectionList(ArrayList<Collection> collectionList) {
+    public void insertCollectionList(List<Collection> collectionList) {
         int insertedRows = DatabaseConstants.DEFAULT_VALUE;
 
         if (collectionList != null && collectionList.size() > DatabaseConstants.EMPTY_VALUES) {

@@ -21,12 +21,16 @@ import com.google.gson.JsonSyntaxException;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ottoboni.hqtracker.communication.ApiClient;
 import br.com.ottoboni.hqtracker.communication.ApiRequest;
 import br.com.ottoboni.hqtracker.communication.model.CollectionResponse;
 import br.com.ottoboni.hqtracker.communication.model.ComicBookResponse;
+import br.com.ottoboni.hqtracker.model.Collection;
+import br.com.ottoboni.hqtracker.model.ComicBook;
+import br.com.ottoboni.hqtracker.parses.ResponseParser;
 import retrofit.Response;
 
 public class CommunicationController {
@@ -53,6 +57,10 @@ public class CommunicationController {
 
             if (response != null && response.body() != null) {
                 comicBooks = response.body();
+
+                List<ComicBook> comicBookList = ResponseParser.parseComicBookList(comicBooks);
+
+                DatabaseController.getInstance().insertComicBookList(comicBookList);
             }
 
         } catch (ConnectException e) {
@@ -66,7 +74,7 @@ public class CommunicationController {
         }
     }
 
-    public List<CollectionResponse> requestCollections() {
+    public void requestCollections() {
         List<CollectionResponse> collections = null;
         ApiRequest apiRequest = ApiClient.createRequests();
 
@@ -76,6 +84,10 @@ public class CommunicationController {
 
             if (response != null && response.body() != null) {
                 collections = response.body();
+
+                List<Collection> collectionList = ResponseParser.parseCollectionList(collections);
+
+                DatabaseController.getInstance().insertCollectionList(collectionList);
             }
 
         } catch (ConnectException e) {
@@ -87,7 +99,5 @@ public class CommunicationController {
         } catch (JsonSyntaxException e) {
             System.out.println("Entrou no Json");
         }
-
-        return collections;
     }
 }
