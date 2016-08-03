@@ -47,9 +47,10 @@ public class CommunicationController {
         return mInstance;
     }
 
-    public void requestComicBookList() {
+    public boolean requestComicBookList() {
         List<ComicBookResponse> comicBooks = null;
         ApiRequest apiRequest = ApiClient.createRequests();
+        boolean result = false;
 
         try {
 
@@ -60,7 +61,7 @@ public class CommunicationController {
 
                 List<ComicBook> comicBookList = ResponseParser.parseComicBookList(comicBooks);
 
-                DatabaseController.getInstance().insertComicBookList(comicBookList);
+                result = DatabaseController.getInstance().insertComicBookList(comicBookList);
             }
 
         } catch (ConnectException e) {
@@ -72,11 +73,14 @@ public class CommunicationController {
         } catch (JsonSyntaxException e) {
             System.out.println("Entrou no Json");
         }
+
+        return result;
     }
 
-    public void requestCollections() {
-        List<CollectionResponse> collections = null;
+    public boolean requestCollections() {
+        List<CollectionResponse> collections;
         ApiRequest apiRequest = ApiClient.createRequests();
+        boolean result = false;
 
         try {
 
@@ -87,7 +91,7 @@ public class CommunicationController {
 
                 List<Collection> collectionList = ResponseParser.parseCollectionList(collections);
 
-                DatabaseController.getInstance().insertCollectionList(collectionList);
+                result = DatabaseController.getInstance().insertCollectionList(collectionList);
             }
 
         } catch (ConnectException e) {
@@ -99,5 +103,7 @@ public class CommunicationController {
         } catch (JsonSyntaxException e) {
             System.out.println("Entrou no Json");
         }
+
+        return result;
     }
 }

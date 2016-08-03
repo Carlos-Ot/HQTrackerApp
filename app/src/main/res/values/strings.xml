@@ -5,4 +5,20 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="txt_start_progress">Configurando o J.A.R.V.I.S&#8230;</string>
+    <string name="txt_end_progress">Finalizando as coisas&#8230;</string>
+
+    <string-array name="progress_text">
+        <item>Abastecendo o Batmóvel&#8230;</item>
+        <item>Lubrificando a armadura do Tony Stark&#8230;</item>
+        <item>Afiando as flechas&#8230;</item>
+        <item>Polindo o escudo do Capitão América&#8230;</item>
+        <item>Alimentando as formigas&#8230;</item>
+        <item>Procurando a Martha&#8230;</item>
+        <item>Acalmando o Hulk&#8230;</item>
+        <item>Calibrando lança-teias&#8230;</item>
+        <item>Salvando o mundo&#8230;</item>
+        <item>Cozinhando em Hells Kitchen&#8230;</item>
+        <item>Rindo da piada mortal&#8230;</item>
+    </string-array>
 </resources>

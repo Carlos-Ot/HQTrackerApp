@@ -41,7 +41,7 @@ public class CollectionDAO {
      */
     public CollectionDAO() {
         DatabaseHelper helper = new DatabaseHelper();
-        helper.getWritableDatabase();
+        mDatabase = helper.getWritableDatabase();
     }
 
     /**
@@ -69,8 +69,9 @@ public class CollectionDAO {
      *
      * @param collectionList the collection list
      */
-    public void insertCollectionList(List<Collection> collectionList) {
+    public boolean insertCollectionList(List<Collection> collectionList) {
         int insertedRows = DatabaseConstants.DEFAULT_VALUE;
+        boolean result = false;
 
         if (collectionList != null && collectionList.size() > DatabaseConstants.EMPTY_VALUES) {
             for (Collection collection : collectionList) {
@@ -86,8 +87,11 @@ public class CollectionDAO {
                 Log.i("CollectionDAO", "Some items were not inserted");
             } else {
                 Log.i("CollectionDAO", "All items were inserted!");
+                result = true;
             }
         }
+
+        return result;
     }
 
     /**

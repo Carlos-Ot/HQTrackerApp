@@ -51,9 +51,6 @@ public class HomeActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AsyncRequest requestTask = new AsyncRequest();
-
-                requestTask.execute();
             }
         });
 
@@ -65,20 +62,6 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-    }
-
-    private class AsyncRequest extends AsyncTask<Void, Void, List<CollectionResponse>> {
-
-        @Override
-        protected List<CollectionResponse> doInBackground(Void... params) {
-//            return CommunicationController.getInstance().requestComicBookList();
-            return CommunicationController.getInstance().requestCollections();
-        }
-
-        @Override
-        protected void onPostExecute(List<CollectionResponse> comicBookResponses) {
-            super.onPostExecute(comicBookResponses);
-        }
     }
 
     @Override

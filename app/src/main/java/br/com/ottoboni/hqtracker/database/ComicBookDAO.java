@@ -70,8 +70,9 @@ public class ComicBookDAO {
      *
      * @param comicBookList the comic book list
      */
-    public void insertComicBookList(List<ComicBook> comicBookList) {
+    public boolean insertComicBookList(List<ComicBook> comicBookList) {
         int insertedRows = DatabaseConstants.DEFAULT_VALUE;
+        boolean result = false;
 
         if (comicBookList != null && comicBookList.size() > DatabaseConstants.EMPTY_VALUES) {
             for (ComicBook comicBook : comicBookList) {
@@ -87,8 +88,11 @@ public class ComicBookDAO {
                 Log.i("comicBookDAO", "Some items were not inserted");
             } else {
                 Log.i("comicBookDAO", "All items were inserted!");
+                result = true;
             }
         }
+
+        return result;
     }
 
     /**
