@@ -30,10 +30,14 @@ import java.util.Random;
 import br.com.ottoboni.hqtracker.R;
 import br.com.ottoboni.hqtracker.app.App;
 import br.com.ottoboni.hqtracker.controllers.CommunicationController;
+import br.com.ottoboni.hqtracker.model.enums.HttpStatus;
 import br.com.ottoboni.hqtracker.util.PreferencesManager;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int COUNT_DOWN_INTERVAL = 2000;
+    private static final int MILLIS_IN_FUTURE = 9000;
+    private static final int MILLIS_IN_FUTURE_TASK = 3000;
     private ProgressBar progressBar;
     private TextView txtProgress;
 
@@ -43,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RequestDataTask requestDataTask;
 
-    private CountDownTimer mProgressTimer = new CountDownTimer(9000, 2000) {
+    private CountDownTimer mProgressTimer = new CountDownTimer(MILLIS_IN_FUTURE, COUNT_DOWN_INTERVAL) {
         @Override
         public void onTick(long millisUntilFinished) {
             randomIndex = random.nextInt(txtProgressArray.length);
@@ -55,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private CountDownTimer mCallHomeActivityTimer = new CountDownTimer(3000, 2000) {
+    private CountDownTimer mCallHomeActivityTimer = new CountDownTimer(MILLIS_IN_FUTURE_TASK, COUNT_DOWN_INTERVAL) {
         @Override
         public void onTick(long millisUntilFinished) {
             randomIndex = random.nextInt(txtProgressArray.length);
@@ -105,19 +109,25 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            boolean collections;
-            boolean comicBooks;
-            Log.d("ottoboni", "Request Task Start");
+            HttpStatus collections = null;
+            HttpStatus comicBooks = null;
+            boolean result = false;
 
             collections = CommunicationController.getInstance().requestCollections();
 
-            if (collections) {
+            if (collections == HttpStatus.SUCCESS)
+            {
                 comicBooks = CommunicationController.getInstance().requestComicBookList();
+                if (comicBooks == HttpStatus.SUCCESS)
+                {
+                    result = true;
+                }
             }
             else {
-                return false;
+                result = false;
             }
-            return collections && comicBooks;
+
+            return result;
         }
 
         @Override

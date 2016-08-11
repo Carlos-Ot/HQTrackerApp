@@ -21,7 +21,6 @@ import com.google.gson.JsonSyntaxException;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ottoboni.hqtracker.communication.ApiClient;
@@ -30,6 +29,7 @@ import br.com.ottoboni.hqtracker.communication.model.CollectionResponse;
 import br.com.ottoboni.hqtracker.communication.model.ComicBookResponse;
 import br.com.ottoboni.hqtracker.model.Collection;
 import br.com.ottoboni.hqtracker.model.ComicBook;
+import br.com.ottoboni.hqtracker.model.enums.HttpStatus;
 import br.com.ottoboni.hqtracker.parses.ResponseParser;
 import retrofit.Response;
 
@@ -47,10 +47,11 @@ public class CommunicationController {
         return mInstance;
     }
 
-    public boolean requestComicBookList() {
+    public HttpStatus requestComicBookList() {
         List<ComicBookResponse> comicBooks = null;
         ApiRequest apiRequest = ApiClient.createRequests();
         boolean result = false;
+        HttpStatus status = HttpStatus.UNKNOWN_ERROR;
 
         try {
 
@@ -65,22 +66,27 @@ public class CommunicationController {
             }
 
         } catch (ConnectException e) {
-            System.out.println("Entrou no Connect");
+            status = HttpStatus.NO_CONNECTION_AVAILABLE;
         } catch (SocketTimeoutException e) {
-            System.out.println("Entrou no Timeout");
+            status = HttpStatus.TIMEOUT;
         } catch (IOException e) {
-            System.out.println("Entrou no IO");
+            status = HttpStatus.UNKNOWN_ERROR;
         } catch (JsonSyntaxException e) {
-            System.out.println("Entrou no Json");
+            status = HttpStatus.JSON_SYNTAX_RESULT;
         }
 
-        return result;
+        if (result) {
+            status = HttpStatus.SUCCESS;
+        }
+
+        return status;
     }
 
-    public boolean requestCollections() {
+    public HttpStatus requestCollections() {
         List<CollectionResponse> collections;
         ApiRequest apiRequest = ApiClient.createRequests();
         boolean result = false;
+        HttpStatus status = HttpStatus.UNKNOWN_ERROR;
 
         try {
 
@@ -95,15 +101,19 @@ public class CommunicationController {
             }
 
         } catch (ConnectException e) {
-            System.out.println("Entrou no Connect");
+            status = HttpStatus.NO_CONNECTION_AVAILABLE;
         } catch (SocketTimeoutException e) {
-            System.out.println("Entrou no Timeout");
+            status = HttpStatus.TIMEOUT;
         } catch (IOException e) {
-            System.out.println("Entrou no IO");
+            status = HttpStatus.UNKNOWN_ERROR;
         } catch (JsonSyntaxException e) {
-            System.out.println("Entrou no Json");
+            status = HttpStatus.JSON_SYNTAX_RESULT;
         }
 
-        return result;
+        if (result) {
+            status = HttpStatus.SUCCESS;
+        }
+
+        return status;
     }
 }
