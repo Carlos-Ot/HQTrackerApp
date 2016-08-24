@@ -16,7 +16,11 @@
 
 package br.com.ottoboni.hqtracker.model.enums;
 
+import android.graphics.Color;
 import android.support.annotation.IntRange;
+
+import br.com.ottoboni.hqtracker.R;
+import br.com.ottoboni.hqtracker.app.App;
 
 /**
  * The enum User status.
@@ -66,6 +70,36 @@ public enum ComicBookStatus {
             return ComicBookStatus.missing;
         } else {
             return ComicBookStatus.invalid;
+        }
+    }
+
+    public static int getStatusColor(ComicBookStatus status) {
+        switch (status) {
+            case acquired:
+                return App.getContext().getResources().getColor(R.color.status_acquired);
+            case pending:
+                return App.getContext().getResources().getColor(R.color.status_pending);
+            case unavailable:
+                return App.getContext().getResources().getColor(R.color.status_unavailable);
+            case missing:
+                return App.getContext().getResources().getColor(R.color.status_missing);
+            default:
+                return App.getContext().getResources().getColor(R.color.status_acquired);
+        }
+    }
+
+    public static String getStatusText(ComicBookStatus status) {
+        switch (status) {
+            case acquired:
+                return App.getContext().getResources().getString(R.string.status_acquired);
+            case pending:
+                return App.getContext().getResources().getString(R.string.status_pending);
+            case unavailable:
+                return App.getContext().getResources().getString(R.string.status_unavailable);
+            case missing:
+                return App.getContext().getResources().getString(R.string.status_missing);
+            default:
+                return App.getContext().getResources().getString(R.string.status_acquired);
         }
     }
 }

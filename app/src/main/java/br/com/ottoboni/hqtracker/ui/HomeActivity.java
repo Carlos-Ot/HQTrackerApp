@@ -20,6 +20,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -36,9 +38,16 @@ import br.com.ottoboni.hqtracker.R;
 import br.com.ottoboni.hqtracker.communication.model.CollectionResponse;
 import br.com.ottoboni.hqtracker.communication.model.ComicBookResponse;
 import br.com.ottoboni.hqtracker.controllers.CommunicationController;
+import br.com.ottoboni.hqtracker.controllers.DatabaseController;
+import br.com.ottoboni.hqtracker.model.ComicBook;
+import br.com.ottoboni.hqtracker.ui.adapter.ComicBookAdapter;
+import br.com.ottoboni.hqtracker.ui.fragment.HomeFragment;
 
 public class HomeActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
+
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +55,14 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+
+        HomeFragment fragment = new HomeFragment();
+
+        fragmentTransaction.add(R.id.fragment_holder, fragment, "MainFragment");
+        fragmentTransaction.commit();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

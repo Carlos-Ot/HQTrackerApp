@@ -3,4 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="white">#ffffff</color>
+
+    <color name="card_view_background">#f2f2f2</color>
+
+    <color name="status_acquired">#669900</color>
+    <color name="status_pending">#0099cc</color>
+    <color name="status_unavailable">#cc0000</color>
+    <color name="status_missing">#ffbb33</color>
 </resources>

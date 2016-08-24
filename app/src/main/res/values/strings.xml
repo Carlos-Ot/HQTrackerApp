@@ -8,6 +8,16 @@
     <string name="txt_start_progress">Configurando o J.A.R.V.I.S&#8230;</string>
     <string name="txt_end_progress">Finalizando as coisas&#8230;</string>
 
+
+    <!-- ComicBook Status -->
+    <string name="status_acquired">Comprado</string>
+    <string name="status_pending">Pendente</string>
+    <string name="status_unavailable">Indisponível</string>
+    <string name="status_missing">Não Tenho</string>
+    <string name="lbl_volume">Volume:</string>
+    <string name="lbl_spine">Lombada:</string>
+    <string name="lbl_read_order">Ordem:</string>
+
     <string-array name="progress_text">
         <item>Abastecendo o Batmóvel&#8230;</item>
         <item>Lubrificando a armadura do Tony Stark&#8230;</item>

@@ -14,37 +14,18 @@
  * limitations under the License.
  */
 
-package br.com.ottoboni.hqtracker.app;
+package br.com.ottoboni.hqtracker.util;
 
 import android.content.Context;
+import android.graphics.Typeface;
 
-import br.com.ottoboni.hqtracker.util.FontUtil;
+public class FontUtil {
 
-/**
- * The type App.
- */
-public class App extends android.app.Application {
+    public static Typeface ROBOTO_MEDIUM;
+    public static Typeface ROBOTO_REGULAR;
 
-    private static Context mContext = null;
-
-    /**
-     * Gets application context.
-     *
-     * @return the context
-     */
-    public static Context getContext() {
-        return mContext;
-    }
-
-    private static void setContext(Context context) {
-        mContext = context;
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        setContext(getApplicationContext());
-
-        FontUtil.loadFonts(getApplicationContext());
+    public static void loadFonts(Context context) {
+        ROBOTO_MEDIUM = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Medium.ttf");
+        ROBOTO_REGULAR = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Regular.ttf");
     }
 }
