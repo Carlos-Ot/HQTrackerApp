@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="br.com.ottoboni.hqtracker.ui.CollectionActivity">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/collection_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="@dimen/margin_10dp"
+        android:paddingEnd="@dimen/margin_10dp"
+        android:layout_marginTop="@dimen/margin_20dp"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"
+        />
+
+</LinearLayout>

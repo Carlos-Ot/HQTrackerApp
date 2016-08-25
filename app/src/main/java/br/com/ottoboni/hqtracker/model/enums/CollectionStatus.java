@@ -18,6 +18,9 @@ package br.com.ottoboni.hqtracker.model.enums;
 
 import android.support.annotation.IntRange;
 
+import br.com.ottoboni.hqtracker.R;
+import br.com.ottoboni.hqtracker.app.App;
+
 public enum CollectionStatus {
 
     tracking,
@@ -37,6 +40,21 @@ public enum CollectionStatus {
             return CollectionStatus.untracked;
         } else {
             return CollectionStatus.invalid;
+        }
+    }
+
+    public static String getStatusText(CollectionStatus status) {
+        switch (status) {
+            case tracking:
+                return App.getContext().getResources().getString(R.string.status_tracking);
+            case paused:
+                return App.getContext().getResources().getString(R.string.status_paused);
+            case finished:
+                return App.getContext().getResources().getString(R.string.status_finished);
+            case untracked:
+                return App.getContext().getResources().getString(R.string.status_untracked);
+            default:
+                return App.getContext().getResources().getString(R.string.status_tracking);
         }
     }
 }

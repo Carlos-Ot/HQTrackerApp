@@ -55,6 +55,9 @@ public class CollectionDAO {
         long insertedId = DatabaseConstants.DEFAULT_DB_INT;
 
         if (collection != null) {
+
+            collection.setStatus(CollectionStatus.untracked);
+
             ContentValues values = getContentValues(collection);
 
             if (values.size() > DatabaseConstants.EMPTY_VALUES) {

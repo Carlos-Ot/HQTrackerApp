@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              android:layout_height="wrap_content"
               android:background="@color/card_view_background"
               android:orientation="vertical"
-              android:padding="15dp"
+              android:padding="@dimen/margin_5dp"
     >
 
     <TextView
@@ -12,31 +12,41 @@
         style="@style/CardViewTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingEnd="@dimen/margin_10dp"
-        android:paddingStart="@dimen/margin_10dp"
-        android:layout_marginBottom="@dimen/margin_10dp"
-        android:text="Marvel Graphic Novels"
+        android:paddingEnd="@dimen/margin_5dp"
+        android:paddingStart="@dimen/margin_5dp"
+        android:layout_marginBottom="@dimen/margin_5dp"
         android:textAlignment="textStart"
         />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginEnd="@dimen/margin_10dp"
-        android:layout_marginStart="@dimen/margin_10dp"
-        android:background="@color/cardview_dark_background"
-        />
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:layout_marginTop="@dimen/margin_10dp"
+           >
 
-    <TextView
-        android:id="@+id/collection_status"
-        style="@style/CardViewText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="end|bottom"
-        android:layout_marginTop="@dimen/margin_10dp"
-        android:paddingEnd="@dimen/margin_10dp"
-        android:paddingStart="@dimen/margin_10dp"
-        android:text="Em Andamento"
-        />
+           <TextView
+               android:id="@+id/count_items"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="@dimen/margin_10dp"
+               android:layout_marginEnd="@dimen/margin_10dp"
+               android:layout_weight="1"
+               android:gravity="start|bottom"
+               style="@style/CardViewText"
+               />
+
+           <TextView
+               android:id="@+id/collection_status"
+               style="@style/CardViewText"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:gravity="end|bottom"
+               android:paddingEnd="@dimen/margin_5dp"
+               android:paddingStart="@dimen/margin_5dp"
+               />
+
+       </LinearLayout>
 
 </LinearLayout>

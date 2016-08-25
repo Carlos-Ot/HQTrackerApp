@@ -9,4 +9,7 @@
     <dimen name="card_view_text">16sp</dimen>
     <dimen name="card_view_title">20sp</dimen>
     <dimen name="margin_10dp">10dp</dimen>
+    <dimen name="margin_20dp">20dp</dimen>
+    <dimen name="margin_5dp">5dp</dimen>
+    <dimen name="img_height">124.65dp</dimen>
 </resources>

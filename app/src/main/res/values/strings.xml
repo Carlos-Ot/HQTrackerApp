@@ -14,9 +14,23 @@
     <string name="status_pending">Pendente</string>
     <string name="status_unavailable">Indisponível</string>
     <string name="status_missing">Não Tenho</string>
+
+    
     <string name="lbl_volume">Volume:</string>
     <string name="lbl_spine">Lombada:</string>
     <string name="lbl_read_order">Ordem:</string>
+
+    <!-- Collection Status -->
+    <string name="status_tracking">Acompanhando</string>
+    <string name="status_paused">Dei uma parada</string>
+    <string name="status_finished">Terminei</string>
+    <string name="status_untracked">Não acompanho</string>
+    <string name="text_empty_list">No momento você não está acompanhando nenhuma coleção. \n\nClique no botão \'+\' para começar a acompanhar uma coleção!</string>
+    <string name="menu_collections">Coleções</string>
+    <string name="menu_publishers">Selos</string>
+    <string name="menu_about">Sobre</string>
+    <string name="title_collections">Coleções</string>
+    <string name="title_comic_books">Quadrinhos</string>
 
     <string-array name="progress_text">
         <item>Abastecendo o Batmóvel&#8230;</item>

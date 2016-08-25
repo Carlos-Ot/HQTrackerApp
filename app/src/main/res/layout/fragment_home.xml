@@ -6,9 +6,13 @@
     <TextView
         android:id="@+id/empty_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Empty view"
-        android:visibility="gone"
+        android:layout_height="match_parent"
+        android:paddingTop="100dp"
+        android:paddingStart="@dimen/margin_20dp"
+        android:paddingEnd="@dimen/margin_20dp"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:text="@string/text_empty_list"
         />
 
     <android.support.v7.widget.RecyclerView
@@ -17,6 +21,7 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:scrollbars="vertical"
+        android:visibility="gone"
         />
 
 </LinearLayout>

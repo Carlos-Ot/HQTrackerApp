@@ -46,6 +46,8 @@ public class DatabaseConstants {
 
     public static final String EQUAL_CLAUSE = " = ? ";
 
+    public static final String AND_CLAUSE = " AND ";
+
     /**
      * The type Comic book table.
      */

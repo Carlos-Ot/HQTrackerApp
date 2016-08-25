@@ -18,6 +18,7 @@ package br.com.ottoboni.hqtracker.database;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -69,6 +70,8 @@ public class ComicBookDAO {
      * Insert comic book list.
      *
      * @param comicBookList the comic book list
+     *
+     * @return the boolean
      */
     public boolean insertComicBookList(List<ComicBook> comicBookList) {
         int insertedRows = DatabaseConstants.DEFAULT_VALUE;
@@ -177,15 +180,47 @@ public class ComicBookDAO {
     /**
      * Gets comic books by status.
      *
-     * @param status the status
+     * @param collectionId the collection id
+     * @param status       the status
      *
      * @return the comic books by status
      */
-    public List<ComicBook> getComicBooksByStatus(ComicBookStatus status) {
-        String whereClause = DatabaseConstants.ComicBookTable.STATUS + DatabaseConstants.EQUAL_CLAUSE;
-        String[] whereArgs = {String.valueOf(status.ordinal())};
+    public List<ComicBook> getComicBooksByStatus(String collectionId, ComicBookStatus status) {
+        String whereClause = DatabaseConstants.ComicBookTable.COLLECTION_ID + DatabaseConstants
+            .EQUAL_CLAUSE + DatabaseConstants.AND_CLAUSE + DatabaseConstants.ComicBookTable.STATUS + DatabaseConstants.EQUAL_CLAUSE;
+        String[] whereArgs = {collectionId, String.valueOf(status.ordinal())};
 
         return getComicBookList(whereClause, whereArgs);
+    }
+
+    /**
+     * Count comic books by status long.
+     *
+     * @param collectionId the collection id
+     * @param status       the status
+     *
+     * @return the long
+     */
+    public long countComicBooksByStatus(String collectionId, ComicBookStatus status) {
+        String whereClause = DatabaseConstants.ComicBookTable.COLLECTION_ID + DatabaseConstants
+            .EQUAL_CLAUSE + DatabaseConstants.AND_CLAUSE + DatabaseConstants.ComicBookTable.STATUS + DatabaseConstants.EQUAL_CLAUSE;
+        String[] whereArgs = {collectionId, String.valueOf(status.ordinal())};
+
+        return countComicBooks(whereClause, whereArgs);
+    }
+
+    /**
+     * Count comic books for collection long.
+     *
+     * @param collectionId the collection id
+     *
+     * @return the long
+     */
+    public long countComicBooksForCollection(String collectionId) {
+        String whereClause = DatabaseConstants.ComicBookTable.COLLECTION_ID + DatabaseConstants.EQUAL_CLAUSE;
+        String[] whereArgs = {collectionId};
+
+        return countComicBooks(whereClause, whereArgs);
     }
 
     private List<ComicBook> getComicBookList(String whereClause, String[] whereArgs) {
@@ -211,6 +246,11 @@ public class ComicBookDAO {
         }
 
         return comicBookList;
+    }
+
+    private long countComicBooks(String whereClause, String[] whereArgs) {
+       return DatabaseUtils.queryNumEntries(mDatabase, DatabaseConstants.ComicBookTable.TABLE_NAME,
+            whereClause, whereArgs);
     }
 
     /**

@@ -71,6 +71,8 @@ public class DatabaseController {
      * Insert comic book list.
      *
      * @param comicBookList the comic book array list
+     *
+     * @return the boolean
      */
     public boolean insertComicBookList(List<ComicBook> comicBookList) {
         return mComicBookDAO.insertComicBookList(comicBookList);
@@ -110,37 +112,67 @@ public class DatabaseController {
     /**
      * Gets acquired comic books.
      *
+     * @param collectionId the collection id
+     *
      * @return the acquired comic books
      */
-    public List<ComicBook> getAcquiredComicBooks() {
-        return mComicBookDAO.getComicBooksByStatus(ComicBookStatus.acquired);
+    public List<ComicBook> getAcquiredComicBooks(String collectionId) {
+        return mComicBookDAO.getComicBooksByStatus(collectionId, ComicBookStatus.acquired);
     }
 
     /**
      * Gets pending comic books.
      *
+     * @param collectionId the collection id
+     *
      * @return the pending comic books
      */
-    public List<ComicBook> getPendingComicBooks() {
-        return mComicBookDAO.getComicBooksByStatus(ComicBookStatus.pending);
+    public List<ComicBook> getPendingComicBooks(String collectionId) {
+        return mComicBookDAO.getComicBooksByStatus(collectionId, ComicBookStatus.pending);
     }
 
     /**
      * Gets unavailable comic books.
      *
+     * @param collectionId the collection id
+     *
      * @return the unavailable comic books
      */
-    public List<ComicBook> getUnavailableComicBooks() {
-        return mComicBookDAO.getComicBooksByStatus(ComicBookStatus.unavailable);
+    public List<ComicBook> getUnavailableComicBooks(String collectionId) {
+        return mComicBookDAO.getComicBooksByStatus(collectionId, ComicBookStatus.unavailable);
     }
 
     /**
      * Gets missing comic books.
      *
+     * @param collectionId the collection id
+     *
      * @return the missing comic books
      */
-    public List<ComicBook> getMissingComicBooks() {
-        return mComicBookDAO.getComicBooksByStatus(ComicBookStatus.missing);
+    public List<ComicBook> getMissingComicBooks(String collectionId) {
+        return mComicBookDAO.getComicBooksByStatus(collectionId, ComicBookStatus.missing);
+    }
+
+    /**
+     * Count acquired comic books long.
+     *
+     * @param collectionId the collection id
+     *
+     * @return the long
+     */
+    public long countAcquiredComicBooks(String collectionId) {
+        return mComicBookDAO.countComicBooksByStatus(collectionId, ComicBookStatus.acquired);
+    }
+
+    /**
+     * Count comic books long.
+     *
+     * @param collectionId the collection id
+     *
+     * @return the long
+     */
+    public long countComicBooks(String collectionId) {
+        return mComicBookDAO.countComicBooksForCollection(collectionId);
     }
 
     /********************************************/
@@ -151,8 +183,12 @@ public class DatabaseController {
      *
      * @return the long CollectionDAO
      **************/
-/*************** CollectionDAO **************/
 
+    /***************
+     * CollectionDAO  @param collection the collection
+     *
+     * @return the long
+     */
     public long insertCollection(Collection collection) {
         return mCollectionDAO.insertCollection(collection);
     }
@@ -161,6 +197,8 @@ public class DatabaseController {
      * Insert collection list.
      *
      * @param collectionArrayList the collection array list
+     *
+     * @return the boolean
      */
     public boolean insertCollectionList(List<Collection> collectionArrayList) {
        return mCollectionDAO.insertCollectionList(collectionArrayList);
