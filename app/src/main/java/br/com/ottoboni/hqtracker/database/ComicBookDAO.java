@@ -231,7 +231,7 @@ public class ComicBookDAO {
             null,
             whereClause,
             whereArgs,
-            null, null, null);
+            null, null, DatabaseConstants.ComicBookTable.VOLUME);
 
         if (cursor.moveToFirst()) {
             do {

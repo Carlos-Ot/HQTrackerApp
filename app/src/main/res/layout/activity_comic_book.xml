@@ -13,6 +13,7 @@
         android:layout_height="match_parent"
         android:paddingStart="@dimen/margin_10dp"
         android:paddingEnd="@dimen/margin_10dp"
+        android:layout_marginTop="@dimen/margin_10dp"
         android:clipToPadding="false"
         android:scrollbars="vertical"
         />

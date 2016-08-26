@@ -51,8 +51,6 @@ public class ComicBookActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             mCollectionId = extras.getString(KEY_COLLECTION_ID);
-
-            Log.d("logBoni", mCollectionId);
         }
 
         comicBookList = (RecyclerView) findViewById(R.id.comic_book_list);
