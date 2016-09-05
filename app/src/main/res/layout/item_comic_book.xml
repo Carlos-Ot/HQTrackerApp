@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:background="@color/card_view_background"
-              android:padding="@dimen/margin_5dp"
-              >
+              android:backgroundTint="@color/item_selected_color"
+              android:orientation="horizontal"
+              android:padding="@dimen/margin_10dp"
+    >
+
     <ImageView
         android:id="@+id/comic_book_cover"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/img_height"
         android:adjustViewBounds="true"
-        android:paddingStart="@dimen/margin_5dp"
         android:paddingEnd="@dimen/margin_5dp"
+        android:paddingStart="@dimen/margin_5dp"
         />
 
     <LinearLayout
@@ -23,13 +24,13 @@
 
         <TextView
             android:id="@+id/txt_title"
+            style="@style/CardViewTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/margin_10dp"
-            android:textAlignment="textStart"
             android:ellipsize="end"
             android:maxLines="2"
-            style="@style/CardViewTitle"
+            android:paddingStart="@dimen/margin_10dp"
+            android:textAlignment="textStart"
             />
 
         <LinearLayout
@@ -38,27 +39,29 @@
             android:layout_marginTop="@dimen/margin_10dp"
             android:orientation="horizontal"
             >
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="@dimen/margin_10dp"
                 android:layout_weight="1"
                 android:orientation="horizontal"
+                android:paddingStart="@dimen/margin_10dp"
                 >
 
                 <TextView
                     android:id="@+id/lbl_volume"
+                    style="@style/CardViewText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/CardViewText"
                     android:text="@string/lbl_volume"
                     />
+
                 <TextView
                     android:id="@+id/txt_volume"
+                    style="@style/CardViewText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    style="@style/CardViewText"
                     />
 
             </LinearLayout>
@@ -67,25 +70,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:gravity="right"
-                android:paddingEnd="@dimen/margin_10dp"
-                android:orientation="horizontal"
                 android:layout_weight="1"
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:paddingEnd="@dimen/margin_10dp"
                 >
+
                 <TextView
                     android:id="@+id/lbl_spine"
+                    style="@style/CardViewText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_10dp"
-                    style="@style/CardViewText"
                     android:text="@string/lbl_spine"
                     />
+
                 <TextView
                     android:id="@+id/txt_spine"
+                    style="@style/CardViewText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    style="@style/CardViewText"
                     />
 
             </LinearLayout>
@@ -94,61 +99,62 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="bottom"
             android:layout_marginTop="@dimen/margin_10dp"
+            android:gravity="bottom"
+            android:orientation="horizontal"
             >
 
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:paddingStart="@dimen/margin_10dp"
-              android:layout_weight="1"
-              android:layout_gravity="start|center"
-              android:orientation="horizontal"
-              >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/margin_10dp"
+                >
 
-              <TextView
-                  android:id="@+id/lbl_read_order"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  style="@style/CardViewText"
-                  android:text="@string/lbl_read_order"
-                  />
-              <TextView
-                  android:id="@+id/txt_read_order"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_gravity="end"
-                  style="@style/CardViewText"
-                  />
-          </LinearLayout>
+                <TextView
+                    android:id="@+id/lbl_read_order"
+                    style="@style/CardViewText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_read_order"
+                    />
+
+                <TextView
+                    android:id="@+id/txt_read_order"
+                    style="@style/CardViewText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    />
+            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingStart="@dimen/margin_10dp"
+                android:layout_gravity="end"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:layout_gravity="end"
+                android:paddingStart="@dimen/margin_10dp"
                 >
 
                 <ImageView
                     android:id="@+id/comic_book_status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
                     android:layout_centerInParent="true"
+                    android:adjustViewBounds="true"
                     android:background="@drawable/comic_book_status"
                     />
 
                 <TextView
                     android:id="@+id/lbl_status"
+                    style="@style/CardViewText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:textColor="@color/white"
-                    style="@style/CardViewText"
                     />
 
             </RelativeLayout>

@@ -162,6 +162,26 @@ public class CollectionDAO {
         return collection;
     }
 
+    public Collection getCollectionById(String collectionId) {
+        Collection collection = new Collection();
+
+        String query = DatabaseConstants.CollectionTable.COLLECTION_ID + DatabaseConstants.EQUAL_CLAUSE;
+        String[] parameters = {collectionId};
+
+        Cursor cursor = mDatabase.query(DatabaseConstants.CollectionTable.TABLE_NAME, null, query,
+            parameters, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            collection = buildCollectionInfo(cursor);
+        }
+
+        if (!cursor.isClosed()) {
+            cursor.close();
+        }
+
+        return collection;
+    }
+
     /**
      * Gets collections.
      *

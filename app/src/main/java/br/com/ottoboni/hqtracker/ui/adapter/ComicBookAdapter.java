@@ -19,8 +19,6 @@ package br.com.ottoboni.hqtracker.ui.adapter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.Shape;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +26,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bignerdranch.android.multiselector.MultiSelector;
+import com.bignerdranch.android.multiselector.SwappingHolder;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -42,18 +42,25 @@ public class ComicBookAdapter extends RecyclerView.Adapter <ComicBookAdapter.Vie
     private List<ComicBook> mItems;
     private Context mContext;
 
-    public ComicBookAdapter(List<ComicBook> items) {
+    private MultiSelector mMultiSelector;
+
+    private ViewHolder.ComicBookListener mItemClickListener;
+
+    public ComicBookAdapter(List<ComicBook> items, MultiSelector selector, ViewHolder.ComicBookListener
+        listener) {
         mItems = items;
+        mMultiSelector = selector;
+        mItemClickListener = listener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         mContext = parent.getContext();
 
-        View rootView = LayoutInflater.from(mContext).inflate(R.layout.comic_book_item_list,
+        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_comic_book,
             parent, false);
 
-        ViewHolder viewHolder = new ViewHolder(rootView);
+        ViewHolder viewHolder = new ViewHolder(rootView, mMultiSelector, mItemClickListener);
 
         setTypeface(viewHolder);
 
@@ -105,7 +112,7 @@ public class ComicBookAdapter extends RecyclerView.Adapter <ComicBookAdapter.Vie
 
         int readOrder = mItems.get(position).getReadOrder();
 
-        if (readOrder != -1) {
+        if (readOrder != 0) {
             holder.mReadOrder.setVisibility(View.VISIBLE);
             holder.mLblReadOrder.setVisibility(View.VISIBLE);
             holder.mReadOrder.setText(Integer.toString(readOrder));
@@ -146,21 +153,24 @@ public class ComicBookAdapter extends RecyclerView.Adapter <ComicBookAdapter.Vie
 
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends SwappingHolder implements View.OnClickListener, View.OnLongClickListener {
 
-        public ImageView mComicBookCover;
-        public ImageView mComicBookStatus;
-        public TextView mComicBookTitle;
-        public TextView mVolume;
-        public TextView mSpine;
-        public TextView mReadOrder;
-        public TextView mLblStatus;
-        public TextView mLblVolume;
-        public TextView mLblSpine;
-        public TextView mLblReadOrder;
+        private ImageView mComicBookCover;
+        private ImageView mComicBookStatus;
+        private TextView mComicBookTitle;
+        private TextView mVolume;
+        private TextView mSpine;
+        private TextView mReadOrder;
+        private TextView mLblStatus;
+        private TextView mLblVolume;
+        private TextView mLblSpine;
+        private TextView mLblReadOrder;
 
-        public ViewHolder(View itemView) {
-            super(itemView);
+        private ComicBookListener mListener;
+        private MultiSelector mMultiSelector;
+
+        public ViewHolder(View itemView, MultiSelector multiSelector, ComicBookListener listener) {
+            super(itemView, multiSelector);
 
             mComicBookCover = (ImageView) itemView.findViewById(R.id.comic_book_cover);
             mComicBookStatus = (ImageView) itemView.findViewById(R.id.comic_book_status);
@@ -173,6 +183,31 @@ public class ComicBookAdapter extends RecyclerView.Adapter <ComicBookAdapter.Vie
             mLblSpine = (TextView) itemView.findViewById(R.id.lbl_spine);
             mLblReadOrder = (TextView) itemView.findViewById(R.id.lbl_read_order);
 
+            mListener = listener;
+            mMultiSelector = multiSelector;
+
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
+
+            setSelectionModeStateListAnimator(null);
+
+        }
+
+        @Override
+        public void onClick(View view) {
+            mListener.onItemClick(this, mMultiSelector);
+
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            mListener.onItemLongClick(this, mMultiSelector);
+            return true;
+        }
+
+        public interface ComicBookListener {
+            void onItemClick(ViewHolder view, MultiSelector multiSelector);
+            void onItemLongClick(ViewHolder view, MultiSelector multiSelector);
         }
     }
 }

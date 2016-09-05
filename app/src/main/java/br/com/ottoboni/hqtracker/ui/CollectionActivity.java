@@ -17,6 +17,7 @@
 package br.com.ottoboni.hqtracker.ui;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,6 +35,7 @@ import br.com.ottoboni.hqtracker.app.App;
 import br.com.ottoboni.hqtracker.controllers.DatabaseController;
 import br.com.ottoboni.hqtracker.model.Collection;
 import br.com.ottoboni.hqtracker.ui.adapter.CollectionAdapter;
+import br.com.ottoboni.hqtracker.ui.view.ItemDivider;
 
 public class CollectionActivity extends AppCompatActivity implements CollectionAdapter.ViewHolder.CollectionItemClickListener{
 
@@ -47,16 +49,33 @@ public class CollectionActivity extends AppCompatActivity implements CollectionA
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection);
 
+        setupActionBar();
+
         initViews();
-        loadList();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (mAdapter != null) {
+            mItems = DatabaseController.getInstance().getUntrackedCollections();
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private void setupActionBar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     private void initViews() {
         collectionList = (RecyclerView) findViewById(R.id.collection_list);
-
-    }
-
-    private void loadList() {
 
         mItems = DatabaseController.getInstance().getUntrackedCollections();
         mAdapter = new CollectionAdapter(mItems, this);
@@ -66,6 +85,7 @@ public class CollectionActivity extends AppCompatActivity implements CollectionA
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(App.getContext());
 
         collectionList.setLayoutManager(mLayoutManager);
+        collectionList.addItemDecoration(new ItemDivider(this));
 
         collectionList.setAdapter(mAdapter);
     }

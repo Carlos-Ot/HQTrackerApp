@@ -164,6 +164,10 @@ public class DatabaseController {
         return mComicBookDAO.countComicBooksByStatus(collectionId, ComicBookStatus.acquired);
     }
 
+    public List<ComicBook> getComicBooks(String collectionId) {
+        return mComicBookDAO.getComicBooksByCollection(collectionId);
+    }
+
     /**
      * Count comic books long.
      *
@@ -232,6 +236,10 @@ public class DatabaseController {
      * @return the collection
      */
     public Collection getCollection(long collectionId) {
+        return mCollectionDAO.getCollectionById(collectionId);
+    }
+
+    public Collection getCollection(String collectionId) {
         return mCollectionDAO.getCollectionById(collectionId);
     }
 

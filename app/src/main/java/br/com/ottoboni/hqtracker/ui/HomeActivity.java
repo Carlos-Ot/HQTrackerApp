@@ -19,26 +19,41 @@ package br.com.ottoboni.hqtracker.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.List;
 
 import br.com.ottoboni.hqtracker.R;
-import br.com.ottoboni.hqtracker.ui.fragment.HomeFragment;
+import br.com.ottoboni.hqtracker.app.App;
+import br.com.ottoboni.hqtracker.controllers.DatabaseController;
+import br.com.ottoboni.hqtracker.model.Collection;
+import br.com.ottoboni.hqtracker.ui.adapter.CollectionAdapter;
+import br.com.ottoboni.hqtracker.ui.view.ItemDivider;
+import br.com.ottoboni.hqtracker.util.FontUtil;
 
 public class HomeActivity extends AppCompatActivity
-    implements NavigationView.OnNavigationItemSelectedListener {
+    implements NavigationView.OnNavigationItemSelectedListener, CollectionAdapter.ViewHolder
+    .CollectionItemClickListener {
 
-    private FragmentManager fragmentManager;
-    private FragmentTransaction fragmentTransaction;
+    private TextView mEmptyView;
+
+    private CollectionAdapter mAdapter;
+    private List<Collection> mItems;
+    private FloatingActionButton fab;
+
+    private RecyclerView collectionList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +62,10 @@ public class HomeActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
+        initView();
+        loadListItems();
 
-        HomeFragment fragment = new HomeFragment();
-
-        fragmentTransaction.add(R.id.fragment_holder, fragment, "MainFragment");
-        fragmentTransaction.commit();
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,6 +82,61 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void initView() {
+
+        collectionList = (RecyclerView) findViewById(R.id.collection_list);
+        mEmptyView = (TextView) findViewById(R.id.empty_list);
+
+        mEmptyView.setTypeface(FontUtil.ROBOTO_REGULAR);
+    }
+
+    private void loadListItems() {
+
+        mItems = DatabaseController.getInstance().getTrackingCollections();
+
+        if (!mItems.isEmpty()) {
+
+            mEmptyView.setVisibility(View.GONE);
+            collectionList.setVisibility(View.VISIBLE);
+
+            mAdapter = new CollectionAdapter(mItems, this);
+
+            collectionList.setHasFixedSize(true);
+
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+
+            collectionList.setLayoutManager(mLayoutManager);
+            collectionList.setAdapter(mAdapter);
+            collectionList.addItemDecoration(new ItemDivider(this));
+
+            collectionList.addOnScrollListener(mScrollListener);
+        } else {
+            mEmptyView.setVisibility(View.VISIBLE);
+            collectionList.setVisibility(View.GONE);
+        }
+    }
+
+    private RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            if (dy > 0) {
+                fab.hide();
+            } else if (dy < 0) {
+                fab.show();
+            }
+        }
+    };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (mAdapter != null) {
+            mItems = DatabaseController.getInstance().getTrackingCollections();
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -123,5 +188,15 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onItemClick(View view) {
+        int position = collectionList.getChildAdapterPosition(view);
+        String collectionId = mItems.get(position).getCollectionId();
+
+        Intent intent = new Intent(HomeActivity.this, ComicBookActivity.class);
+        intent.putExtra(ComicBookActivity.KEY_COLLECTION_ID, collectionId);
+        startActivity(intent);
     }
 }
